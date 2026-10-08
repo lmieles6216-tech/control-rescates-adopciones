@@ -1,0 +1,14 @@
+flowchart TB
+  UI["Web / aplicación móvil"] --> API["API REST / BFF"]
+  API --> APP["Capa de aplicación\ncasos de uso"]
+  APP --> DOM["Dominio\nentidades, reglas y eventos"]
+  APP --> REPO["Puertos de persistencia"]
+  REPO --> DB[("PostgreSQL")]
+  DOM --> BUS["Bus de eventos"]
+  BUS --> MSG["Adaptador de mensajería"]
+  MSG --> EMAIL["Correo / SMS / push"]
+  APP --> STORAGE["Almacenamiento de evidencias\nfotos, certificados y contratos"]
+  API --> AUTH["Proveedor de identidad\nOAuth2 / JWT"]
+  OBS["Observabilidad\nlogs, métricas, auditoría"] -.-> API
+  OBS -.-> APP
+  OBS -.-> DOM
