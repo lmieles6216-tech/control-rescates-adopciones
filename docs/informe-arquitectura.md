@@ -24,7 +24,7 @@ La propuesta aplica cuatro patrones de diseño principales:
 
 El repositorio local preparado sigue una estructura compatible con Gitflow: `main`, `develop`, ramas `feature/*` y `release/*`. El enlace público de GitHub debe sustituirse por el URL real del repositorio del estudiante una vez publicado.
 
-**Enlace público de GitHub:** `https://github.com/<usuario>/control-rescates-adopciones`
+**Enlace público de GitHub:** `https://github.com/lmieles6216-tech/control-rescates-adopciones`
 
 ## 2. Supuestos y límites del escenario
 
@@ -305,7 +305,7 @@ El repositorio incluye las ramas base y de trabajo siguientes:
 Para cumplir completamente el requisito de **repositorio público**, el estudiante debe crear o seleccionar un repositorio en GitHub, cambiar el remoto y publicar las ramas:
 
 ```bash
-git remote add origin https://github.com/<usuario>/control-rescates-adopciones.git
+git remote add origin https://github.com/lmieles6216-tech/control-rescates-adopciones.git
 git push -u origin main
 git push -u origin develop
 git push -u origin --all
