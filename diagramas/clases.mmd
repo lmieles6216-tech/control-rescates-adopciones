@@ -1,0 +1,89 @@
+classDiagram
+  class Usuario {
+    +UUID id
+    +String nombre
+    +String email
+    +Rol rol
+    +activar()
+  }
+  class Animal {
+    +UUID id
+    +String nombre
+    +Especie especie
+    +String raza
+    +EstadoAnimal estado
+    +Date fechaIngreso
+    +cambiarEstado(EstadoAnimal)
+  }
+  class Rescate {
+    +UUID id
+    +DateTime fecha
+    +String ubicacion
+    +String descripcion
+    +Prioridad prioridad
+    +registrar()
+  }
+  class EvaluacionVeterinaria {
+    +UUID id
+    +Date fecha
+    +String diagnostico
+    +String tratamiento
+    +Boolean aptoAdopcion
+  }
+  class SolicitudAdopcion {
+    +UUID id
+    +Date fecha
+    +EstadoSolicitud estado
+    +String motivo
+    +aprobar()
+    +rechazar(String)
+  }
+  class Adopcion {
+    +UUID id
+    +Date fechaFormalizacion
+    +String contratoUrl
+    +formalizar()
+  }
+  class Notificacion {
+    +UUID id
+    +Canal canal
+    +String mensaje
+    +DateTime enviadaEn
+    +enviar()
+  }
+  class AnimalFactory {
+    <<Factory Method>>
+    +crear(Especie, datos) Animal
+  }
+  class AdopcionService {
+    <<Application Service>>
+    +registrarSolicitud(datos)
+    +decidirSolicitud(id, decision)
+  }
+  class EstadoSolicitudStrategy {
+    <<Strategy>>
+    +validar(SolicitudAdopcion) Resultado
+  }
+  class EventoDominio {
+    <<Observer/Event Bus>>
+    +publicar(Evento)
+    +suscribir(Observador)
+  }
+  class RepositorioAnimal {
+    <<Repository>>
+    +guardar(Animal)
+    +buscarDisponibles(filtros)
+  }
+  Usuario "1" --> "0..*" Rescate : registra
+  Rescate "1" --> "1" Animal : origina
+  Animal "1" --> "0..*" EvaluacionVeterinaria : recibe
+  Usuario "1" --> "0..*" EvaluacionVeterinaria : realiza
+  Usuario "1" --> "0..*" SolicitudAdopcion : presenta
+  SolicitudAdopcion "1" --> "1" Animal : solicita
+  SolicitudAdopcion "1" --> "0..1" Adopcion : produce
+  SolicitudAdopcion "1" --> "0..*" Notificacion : genera
+  AnimalFactory ..> Animal : crea
+  AdopcionService ..> RepositorioAnimal : usa
+  AdopcionService ..> EstadoSolicitudStrategy : delega
+  AdopcionService ..> EventoDominio : publica
+  EventoDominio ..> Notificacion : notifica
